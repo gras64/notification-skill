@@ -1,0 +1,23 @@
+{
+  "skillMetadata":{
+    "sections":[
+      {
+        "name": "Sound Options",
+        "fields": [
+          {
+              "name": "sound",
+              "type": "checkbox",
+              "label": "activate acustic note",
+              "value": "True"
+          },
+          {
+              "name": "repetition",
+              "type": "number",
+              "label": "duration of repetition in minutes",
+              "value": 60
+          }
+        ]
+      }
+    ]
+  }
+}
