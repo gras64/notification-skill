@@ -11,16 +11,19 @@ class Notification(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-        note = []
-        self.settings["notifications"] = self.settings.get('notifications', note)
+        self.settings["notifications"] = self.settings.get('notifications', [])
         self.settings["sound"] = self.settings.get('sound', True)
         self.settings["repetition"] = self.settings.get('repetition', 30)
         self.repetition = self.settings["repetition"]
+        self.settings["timer"] = self.settings.get("timer", 30)
         self.notetime = 120 # max notification waittime
         self.add_event('notification:save',
                 self.get_notification)
         self.add_event('notification:delete',
                 self.del_notification)
+        if len(self.settings["notifications"]) >= 1:
+            self.set_bell(self.settings["timer"])
+            self.ex_bell()
         #self.notification_example() #activate test
 
     def notification_example(self): #example
@@ -58,12 +61,13 @@ class Notification(MycroftSkill):
         self.settings["notifications"] = self.settings['notifications'] + r
         self.log.info("save_notification "+str(self.settings["notifications"]))
 
-    def set_bell(self, time):
+    def set_bell(self, time=30):
         ## shortest time wins
         if self.notetime < time: 
             time = self.notetime
         self.notetime = time
         ##
+        self.settings["timer"] = time
         self.schedule_repeating_event(self.ex_bell, None, time*60, name='notebell')
 
     def ex_bell(self):
