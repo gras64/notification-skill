@@ -18,7 +18,7 @@ class Notification(MycroftSkill):
                 self.get_notification)
         self.add_event('notification:delete',
                 self.del_notification)
-        self.add_notification()
+        #self.add_notification()
 
     def add_notification(self): #test
         self.bus.emit(Message('notification:save',
@@ -48,6 +48,7 @@ class Notification(MycroftSkill):
         self.log.info("save_notification "+str(self.settings["notifications"]))
 
     def set_bell(self):
+        self.schedule_repeating_event(self.ex_bell, self.settings["repetition"]*60, name='notebell')
         pass
 
     def ex_bell(self):
@@ -56,6 +57,7 @@ class Notification(MycroftSkill):
             play_wav(REMINDER_PING)
 
     def unset_bell(self):
+        self.cancel_scheduled_event("notebell")
         self.bus.emit(Message('mycroft.eyes.default'))
 
     @intent_file_handler('notification.intent')

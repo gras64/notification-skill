@@ -8,6 +8,16 @@ Other skills can save notifications here and have them called up later
 * "Do you have any news for me"
 * "There is something new for me"
 
+## send notification from other skills
+
+```python
+... 
+def notification_example(self):
+    self.bus.emit(Message('notification:save',
+                            {'skill': 'testskill', 'utterances': 'testutter'}))
+...
+```
+
 ## Credits
 gras64
 
