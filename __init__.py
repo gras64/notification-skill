@@ -18,19 +18,19 @@ class Notification(MycroftSkill):
                 self.get_notification)
         self.add_event('notification:delete',
                 self.del_notification)
-        #self.add_notification()
+        #self.notification_example()
 
-    def add_notification(self): #test
+    def notification_example(self): #test
         self.bus.emit(Message('notification:save',
-                                {'skill': 'testskill', 'utterances': 'testutter'}))
+                                {'skill': 'testskill', 'text': 'testutter'}))
 
     def get_notification(self, message):
         '''
         self.bus.emit(Message('notification:alert',
-                        {'skill': 'testskill', 'utterances': 'testutter'}))'''
+                        {'skill': 'testskill', 'text': 'testutter'}))'''
 
         skill = message.data.get("skill")
-        utter = message.data.get("utterances")
+        utter = message.data.get("text")
         self.log.info("test :"+skill+ " and "+utter)
         self.save_notification(skill,utter)
 
