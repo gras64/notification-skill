@@ -25,10 +25,15 @@ class Notification(MycroftSkill):
             self.set_bell(self.settings["timer"])
             self.ex_bell()
         #self.notification_example() #activate test
+        #self.del_notifivation_example() #test2
 
     def notification_example(self): #example
         self.bus.emit(Message('notification:save',
                                 {'skill': 'homeassistent', 'text': 'coffee is ready', 'time': 1}))
+
+    def del_notifivation_example(self): #example
+        self.bus.emit(Message('notification:delete',
+                        {'skill': 'homeassistent'}))
 
     def get_notification(self, message):
         '''
@@ -48,8 +53,19 @@ class Notification(MycroftSkill):
     def del_notification(self, message):
         '''
         self.bus.emit(Message('notification:delete',
-                        {'skill'}))'''
-        pass
+                        {'skill': homeassistent}))'''
+        skill = message.data.get("skill")
+        notes = len(self.settings["notifications"])
+        if notes >= 1:
+            i = 0
+            while i < notes:
+                note = self.settings["notifications"][i]
+                if skill in note["Skill"]:
+                    self.log.info(note)
+                    del self.settings["notifications"][i]
+                i = i + 1
+        if len(self.settings["notifications"]) < 1:
+            self.unset_bell()
 
         
 
