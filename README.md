@@ -29,6 +29,8 @@ def notification_example(self):
     self.emitter.emit(Message('notification:delete',
                             {'skill': 'testskill'}))
 ```
+## configuration
+you can turn off the acustic notification and adjust the standard timer for notifications
 
 ## Credits
 gras64
