@@ -16,9 +16,9 @@ def notification_example(self):
     self.emitter.emit(Message('notification:save',
                             {'skill': 'testskill', 'message': 'testutter', 'time': 30}))
 ```
- skill = name of your skill
- text = Speak text
- time = time in minute between beep (optional)
+'skill' = name of your skill
+'text' = Speak text
+'time' = time in minute between beep (optional)
 
 Delete Notifications
 ```python 
