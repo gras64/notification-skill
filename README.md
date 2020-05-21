@@ -2,11 +2,14 @@
 Other skills can save notifications here and have them called up later
 
 ## About
-Other skills can save notifications here and have them called up later
+Other skills can save notifications here and have them called up later. As soon as there is a hint, the LED ring lights up orange and a notification bell sounds every few minutes
 
 ## Examples
-* "Do you have any news for me"
-* "There is something new for me"
+* "Do you have any Notes for me"
+* "There is something Notes for me"
+* "delete old notes"
+* "you can delete your old notes"
+
 
 ## notification from other skills
 
