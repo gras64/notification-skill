@@ -22,9 +22,9 @@ def notification_example(self):
 ```
 'skill' = name of your skill
 
-'text' = Speak text
+'text' = speak text
 
-'dialog' = Dialogfile Name
+'dialog' = dialogfile name
 
 'data' = variable for dialogfile
 
