@@ -13,6 +13,7 @@ class Notification(MycroftSkill):
     def initialize(self):
         self.settings["notifications"] = self.settings.get('notifications', [])
         self.settings["sound"] = self.settings.get('sound', True)
+        self.settings["autoplay"] = self.settings.get('autoplay', True)
         self.settings["repetition"] = self.settings.get('repetition', 30)
         self.repetition = self.settings["repetition"]
         self.settings["timer"] = self.settings.get("timer", 30)
@@ -85,6 +86,9 @@ class Notification(MycroftSkill):
         ##
         self.settings["timer"] = time
         self.schedule_repeating_event(self.ex_bell, None, time*60, name='notebell')
+        if self.settings["autoplay"]:
+            self.add_event('recognizer_loop:audio_output_end',
+                        self.handle_notification)
 
     def ex_bell(self):
         self.enclosure.eyes_color(253, 158, 102)
@@ -95,10 +99,14 @@ class Notification(MycroftSkill):
     def unset_bell(self):
         self.cancel_scheduled_event("notebell")
         self.bus.emit(Message('mycroft.eyes.default'))
+        self.notetime = 120
+        #self.remove_instance_handlers()
+        self.remove_event('recognizer_loop:audio_output_end')
 
     @intent_file_handler('notification.intent')
-    def handle_notification(self, message):
+    def handle_notification(self, message=None):
         notes = len(self.settings["notifications"])
+        self.remove_event('recognizer_loop:audio_output_end')
         if notes > 1:
             self.speak_dialog('notification', data={"notes":notes})
             i = 0
@@ -114,6 +122,9 @@ class Notification(MycroftSkill):
         else:
             self.speak_dialog('no.notification')
         self.log.info(self.settings["notifications"])
+        self.remove_event('recognizer_loop:audio_output_end')
+        if len(self.settings["notifications"]) < 1:
+            self.unset_bell()
 
 
     @intent_file_handler('del.notification.intent')
@@ -124,6 +135,8 @@ class Notification(MycroftSkill):
         self.log.info(self.settings["notifications"])
 
     def shutdown(self):
+        #self.remove_instance_handlers()
+        self.remove_event('recognizer_loop:audio_output_end')
         self.cancel_scheduled_event("notebell")
 
 def create_skill():

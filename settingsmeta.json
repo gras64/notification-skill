@@ -11,6 +11,12 @@
               "value": "True"
           },
           {
+            "name": "autoplay",
+            "type": "checkbox",
+            "label": "(autoplay) append note to request",
+            "value": "True"
+          },          
+          {
               "name": "repetition",
               "type": "number",
               "label": "duration of repetition in minutes",
