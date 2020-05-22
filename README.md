@@ -26,7 +26,7 @@ def notification_example(self):
 
 'dialog' = Dialogfile Name
 
-'data' = variable fror dialogfile
+'data' = variable for dialogfile
 
 'time' = time in minute between beep (optional)
 
