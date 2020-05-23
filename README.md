@@ -18,7 +18,7 @@ Save Notifications
 def notification_example(self):
     text = self.dialog_renderer.render(dialog, data=None) ## optional for dialogfile
     self.emitter.emit(Message('notification:save',
-                            {'skill': 'testskill', 'message': text, 'time': 30}))
+                            {'skill': 'testskill', 'text': text, 'time': 30}))
     """
     Options:
         skill : name of your skill
