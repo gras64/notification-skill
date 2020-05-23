@@ -25,6 +25,7 @@ class Notification(MycroftSkill):
         if len(self.settings["notifications"]) >= 1:
             self.set_bell(self.settings["timer"])
             self.ex_bell()
+        set_active_lang(en-us)
         #self.notification_example() #activate test
         #self.del_notifivation_example() #test2
 

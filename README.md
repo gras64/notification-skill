@@ -19,12 +19,16 @@ def notification_example(self):
     text = self.dialog_renderer.render(dialog, data=None) ## optional for dialogfile
     self.emitter.emit(Message('notification:save',
                             {'skill': 'testskill', 'message': text, 'time': 30}))
+    """
+    Options:
+        skill : name of your skill
+        text : Speak text
+        dialog : dialogfile name
+        data : variable fror dialogfile
+        time : time in minute between beep (optional)
+
+    """
 ```
-'skill' = name of your skill
-'text' = Speak text
-'dialog' = Dialogfile Name
-'data' = variable fror dialogfile
-'time' = time in minute between beep (optional)
 
 Delete Notifications
 ```python 
