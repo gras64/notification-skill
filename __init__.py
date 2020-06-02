@@ -25,6 +25,8 @@ class Notification(MycroftSkill):
         if len(self.settings["notifications"]) >= 1:
             self.set_bell(self.settings["timer"])
             self.ex_bell()
+        self.register_intent_file('notification.intent', self.handle_notification)
+        self.register_intent_file('del.notification.intent', self.delete_notification)
         #self.notification_example() #activate test
         #self.del_notifivation_example() #test2
 
@@ -73,6 +75,7 @@ class Notification(MycroftSkill):
     def save_notification(self, skill, utter, time=30):
         self.set_bell(time)
         self.ex_bell()
+        #self.register_intent_file('notification.intent', self.handle_notification)
         #self.repetition = []
         r = [{"Skill" : skill, "text": utter, "time": str(time)}]
         self.settings["notifications"] = self.settings['notifications'] + r
@@ -101,9 +104,9 @@ class Notification(MycroftSkill):
         self.bus.emit(Message('mycroft.eyes.default'))
         self.notetime = 120
         #self.remove_instance_handlers()
+        #self.disable_intent("notification.intent")
         self.remove_event('recognizer_loop:audio_output_end')
 
-    @intent_file_handler('notification.intent')
     def handle_notification(self, message=None):
         notes = len(self.settings["notifications"])
         self.remove_event('recognizer_loop:audio_output_end')

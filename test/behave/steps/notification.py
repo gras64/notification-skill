@@ -1,3 +1,4 @@
+import time
 from behave import given, then, when
 from mycroft.messagebus.message import Message
 
@@ -7,5 +8,6 @@ def notification_example(self): #example
                                 {'skill': 'homeassistent', 'text': 'coffee is ready', 'time': 1}))
 @when('delete test notification')
 def del_notifivation_example(self): #example
+    time.sleep(3)
     self.bus.emit(Message('notification:delete',
                         {'skill': 'homeassistent'}))
