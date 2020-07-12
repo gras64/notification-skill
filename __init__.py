@@ -106,7 +106,6 @@ class Notification(MycroftSkill):
         self.bus.emit(Message('mycroft.eyes.default'))
         self.notetime = 120
         self.gui.clear()
-        self.gui.show_page('idle.qml')
         #self.remove_instance_handlers()
         #self.disable_intent("notification.intent")
         self.remove_event('recognizer_loop:audio_output_end')
