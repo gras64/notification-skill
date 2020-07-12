@@ -27,8 +27,8 @@ class Notification(MycroftSkill):
             self.ex_bell()
         self.register_intent_file('notification.intent', self.handle_notification)
         self.register_intent_file('del.notification.intent', self.delete_notification)
-        self.notification_example() #activate test
-        self.del_notifivation_example() #test2
+        #self.notification_example() #activate test
+        #self.del_notifivation_example() #test2
 
     def notification_example(self): #example
         self.bus.emit(Message('notification:save',
@@ -96,7 +96,7 @@ class Notification(MycroftSkill):
     def ex_bell(self):
         self.enclosure.eyes_color(253, 158, 102)
         self.log.info("show picture")
-        self.gui.show_image(abspath(dirname(__file__))+"/alarm-clock.jpg", fill='PreserveAspectFit', override_idle=True,)
+        self.gui.show_image(abspath(dirname(__file__))+"/alarm-clock.jpg", fill='PreserveAspectFit')
         if self.settings["sound"]:
             play_wav(REMINDER_PING)
         self.log.info("notifacation available")
