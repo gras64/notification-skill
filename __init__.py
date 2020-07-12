@@ -1,4 +1,4 @@
-from os.path import dirname, join
+from os.path import os, abspath, dirname, join
 from mycroft.util import play_wav
 from mycroft import MycroftSkill, intent_file_handler
 from mycroft.messagebus.message import Message
@@ -27,8 +27,8 @@ class Notification(MycroftSkill):
             self.ex_bell()
         self.register_intent_file('notification.intent', self.handle_notification)
         self.register_intent_file('del.notification.intent', self.delete_notification)
-        #self.notification_example() #activate test
-        #self.del_notifivation_example() #test2
+        self.notification_example() #activate test
+        self.del_notifivation_example() #test2
 
     def notification_example(self): #example
         self.bus.emit(Message('notification:save',
@@ -95,6 +95,8 @@ class Notification(MycroftSkill):
 
     def ex_bell(self):
         self.enclosure.eyes_color(253, 158, 102)
+        self.log.info("show picture")
+        self.gui.show_image(abspath(dirname(__file__))+"/alarm-clock.jpg", fill='PreserveAspectFit', override_idle=True,)
         if self.settings["sound"]:
             play_wav(REMINDER_PING)
         self.log.info("notifacation available")
@@ -103,6 +105,8 @@ class Notification(MycroftSkill):
         self.cancel_scheduled_event("notebell")
         self.bus.emit(Message('mycroft.eyes.default'))
         self.notetime = 120
+        self.gui.clear()
+        self.gui.show_page('idle.qml')
         #self.remove_instance_handlers()
         #self.disable_intent("notification.intent")
         self.remove_event('recognizer_loop:audio_output_end')
